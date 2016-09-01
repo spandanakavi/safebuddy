@@ -16,6 +16,7 @@ You're all set!
 ## Software Requirements
 
 Safe Buddy application requires following software to be installed:
+
 * PHP 5.6.4 or later
 * MySQL 5.6.x or later
 * Apache 2.4.x
