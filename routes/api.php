@@ -22,4 +22,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('projects', 'Api\v1\ProjectController', ['only' => [
         'index', 'show'
     ]]);
+    Route::resource('users', 'Api\v1\UserController', ['only' => [
+        'index', 'show'
+    ]]);
 });
