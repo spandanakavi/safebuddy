@@ -18,6 +18,7 @@ class RegisterController extends Controller
             'ace_number' => $data['ace_number'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'project_id' => $data['project_id']
         ]);
     }
 }

@@ -18,5 +18,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::group(['prefix' => 'v1'], function () {
-  Route::post('register', 'Api\v1\RegisterController@create');
+    Route::post('register', 'Api\v1\RegisterController@create');
+    Route::resource('projects', 'Api\v1\ProjectController', ['only' => [
+        'index', 'show'
+    ]]);
 });
