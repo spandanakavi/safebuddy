@@ -15,10 +15,12 @@ class RegisterController extends Controller
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'ace_number' => $data['ace_number'],
+            'ace_number' => isset($data['ace_number']) ? $data['ace_number'] : null,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'project_id' => $data['project_id']
+            'project_id' => isset($data['project_id']) ? $data['project_id'] : null,
+            'is_parent' => $data['is_parent'],
+            'child_email' => isset($data['child_email']) ? $data['child_email'] : null
         ]);
     }
 }
