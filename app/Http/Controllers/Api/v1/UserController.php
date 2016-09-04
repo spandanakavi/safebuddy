@@ -21,13 +21,24 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return the user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        // For current user
+        if ($id == "me") {
+            $currentUserToken = $request->header('Authorization');
+            $currentUserToken = substr($currentUserToken, strlen('Bearer '));
+
+            return User::whereHas('accessToken', function($query) use($currentUserToken) {
+                $query->where('id', '=', $currentUserToken);
+            })->get();
+        }
+
+        // For others
         return User::find($id);
     }
 }
