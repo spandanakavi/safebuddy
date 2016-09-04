@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Api\v1\Controller;
-use App\Project;
+use App\Vehicle;
 
-class ProjectController extends Controller
+class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::all();
+        return Vehicle::all();
     }
 
     /**
@@ -38,7 +38,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // @TODO Implement insert of vehicle through API
     }
 
     /**
@@ -49,12 +49,12 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::find($id);
-        if ($project === null || empty($project)) {
-            return $this->error(404, "Project not found.");
+        $vehicle = Vehicle::find($id);
+        if ($vehicle === null || empty($vehicle)) {
+            return $this->error(404, "Vehicle not found.");
         }
 
-        return $oroject;
+        return $vehicle;
     }
 
     /**
@@ -77,7 +77,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // @TODO Implement update of vehicle through API
     }
 
     /**
@@ -88,6 +88,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // @TODO Implement delete of vehicle through API
     }
 }
