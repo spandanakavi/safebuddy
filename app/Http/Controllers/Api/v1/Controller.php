@@ -8,6 +8,6 @@ class Controller extends BaseController
 {
     protected function error($code, $description)
     {
-        return response()->json(['code' => $code, "message" => $description]);
+        return response()->json(['code' => $code, "message" => $description], $code);
     }
 }

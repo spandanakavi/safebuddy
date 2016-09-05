@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Api\v1\Controller;
-use App\Project;
+use App\Buddy;
 
-class ProjectController extends Controller
+class BuddyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::all();
+        return Buddy::all();
     }
 
     /**
@@ -38,7 +38,13 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $buddy = new Buddy();
+
+        if ($this->save($request, $buddy)) {
+            return $buddy;
+        }
+
+        return $this->error(422, "Unable to save buddy.");
     }
 
     /**
@@ -49,12 +55,12 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::find($id);
-        if ($project === null || empty($project)) {
+        $buddy = Buddy::find($id);
+        if ($buddy === null || empty($buddy)) {
             return $this->error(404, "Project not found.");
         }
 
-        return $project;
+        return $buddy;
     }
 
     /**
@@ -77,7 +83,16 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $buddy = Buddy::find($id);
+        if ($buddy === null || empty($buddy)) {
+            return $this->error(404, "Project not found.");
+        }
+
+        if ($this->save($request, $buddy)) {
+            return $buddy;
+        }
+
+        return $this->error(422, "Unable to save buddy.");
     }
 
     /**
@@ -88,6 +103,21 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $count = Buddy::destroy($id);
+
+        if ($count <= 0) {
+            return $this->error(404, 'Buddy not found.');
+        }
+    }
+
+    private function save(Request $request, Buddy $buddy)
+    {
+        $buddy->first_name = $request->input('first_name');
+        $buddy->last_name = $request->input('last_name');
+        $buddy->email = $request->input('email');
+        $buddy->mobile = $request->input('mobile');
+        $buddy->buddy_of_user_id = $request->input('buddy_of_user_id');
+
+        return $buddy->save();
     }
 }

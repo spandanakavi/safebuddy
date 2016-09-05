@@ -28,4 +28,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('vehicles', 'Api\v1\VehicleController', ['only' => [
         'index', 'show'
     ]]);
+    Route::resource('buddies', 'Api\v1\BuddyController', ['only' => [
+        'index', 'show', 'store', 'update', 'destroy'
+    ]]);
 });

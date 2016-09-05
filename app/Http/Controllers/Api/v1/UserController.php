@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\v1\Controller;
 use App\User;
 
 class UserController extends Controller
@@ -28,17 +28,27 @@ class UserController extends Controller
      */
     public function show($id, Request $request)
     {
-        // For current user
         if ($id == "me") {
+
+            // For current user
             $currentUserToken = $request->header('Authorization');
             $currentUserToken = substr($currentUserToken, strlen('Bearer '));
 
-            return User::whereHas('accessToken', function($query) use($currentUserToken) {
+            $user = User::whereHas('accessToken', function($query) use($currentUserToken) {
                 $query->where('id', '=', $currentUserToken);
             })->get();
+
+        }
+        else {
+
+            // For others
+            $user = User::find($id);
         }
 
-        // For others
-        return User::find($id);
+        if ($user === null || empty($user) || $user->isEmpty()) {
+            return $this->error(404, "User not found.");
+        }
+
+        return $user;
     }
 }
