@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->integer('project_id')->unsigned()->nullable();
             $table->boolean('is_parent')->default(false);
             $table->string('child_email')->nullable();
+            $table->string('mobile')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

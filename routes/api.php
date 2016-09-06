@@ -31,4 +31,5 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('buddies', 'Api\v1\BuddyController', ['only' => [
         'index', 'show', 'store', 'update', 'destroy'
     ]]);
+    Route::get('users/{id}/contacts', 'Api\v1\UserController@contacts');
 });

@@ -28,6 +28,45 @@ class UserController extends Controller
      */
     public function show($id, Request $request)
     {
+        $user = $this->fetchUser($id, $request);
+
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        return $user;
+    }
+
+    /**
+     * Return the parent[s] of the user.
+     */
+    public function contacts($id, Request $request)
+    {
+        $user = $this->fetchUser($id, $request);
+
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        $contacts = $user->contacts();
+
+        return $contacts;
+    }
+
+    private function fetchUser($id, Request $request)
+    {
+        $user = null;
+
         if ($id == "me") {
 
             // For current user
@@ -45,10 +84,8 @@ class UserController extends Controller
             $user = User::find($id);
         }
 
-        if ($user === null || empty($user) || $user->isEmpty()) {
-            return $this->error(404, "User not found.");
-        }
-
         return $user;
     }
+
+
 }

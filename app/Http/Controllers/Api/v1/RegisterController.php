@@ -20,7 +20,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'project_id' => isset($data['project_id']) ? $data['project_id'] : null,
             'is_parent' => $data['is_parent'],
-            'child_email' => isset($data['child_email']) ? $data['child_email'] : null
+            'child_email' => isset($data['child_email']) ? $data['child_email'] : null,
+            'mobile' => isset($data['mobile']) ? $data['mobile'] : null
         ]);
     }
 }

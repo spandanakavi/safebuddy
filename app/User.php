@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -32,5 +33,78 @@ class User extends Authenticatable
     public function accessToken()
     {
         return $this->hasOne('App\OauthAccessToken');
+    }
+
+    public function contacts()
+    {
+        // Parents
+        $parents = $this->parents();
+
+        // Project manager
+        $pm = $this->projectManager();
+
+        // Buddies
+        $buddies = $this->buddies();
+
+        // Merge contacts
+        $usersInSystem = $parents->merge($pm);
+        $result = $this->buildContacts($usersInSystem, $buddies);
+
+        return $result;
+    }
+
+    public function parents()
+    {
+        $parents = DB::table('users')->where('is_parent', 1)->where('child_email', $this->email)->get();
+        return $parents;
+    }
+
+    public function projectManager()
+    {
+        $pm = DB::table('users')
+                ->join('projects', 'users.project_id', '=', 'projects.id')
+                ->join('users AS pm_user', 'projects.pm_id', '=', 'pm_user.id')
+                ->where('users.id', $this->id)
+                ->get();
+        return $pm;
+    }
+
+    public function buddies()
+    {
+        $buddies = DB::table('users')
+                    ->join('buddies', 'buddies.buddy_of_user_id', '=', 'users.id')
+                    ->where('users.id', $this->id)
+                    ->get();
+        return $buddies;
+    }
+
+    // Build the list of contacts from system users (parents and pm)
+    // and buddies.
+    private function buildContacts($usersInSystem, $buddies)
+    {
+        $result = array();
+
+        foreach ($usersInSystem as $userInSystem) {
+            $contactUser = array();
+            $contactUser['first_name'] = $userInSystem->first_name;
+            $contactUser['last_name'] = $userInSystem->last_name;
+            $contactUser['email'] = $userInSystem->email;
+            $contactUser['mobile'] = $userInSystem->mobile;
+            $contactUser['is_parent'] = $userInSystem->is_parent ? true : false;
+            $result[] = $contactUser;
+        }
+
+        foreach ($buddies as $buddy) {
+            $contactUser = array();
+            $contactUser['first_name'] = $buddy->first_name;
+            $contactUser['last_name'] = $buddy->last_name;
+            $contactUser['email'] = $buddy->email;
+            $contactUser['mobile'] = $buddy->mobile;
+            $contactUser['is_parent'] = false;
+
+            $result[] = $contactUser;
+        }
+
+        return $result;
     }
 }
