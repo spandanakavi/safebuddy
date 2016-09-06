@@ -121,30 +121,6 @@ class UserController extends Controller
         return $tracking;
     }
 
-    private function fetchUser($id, Request $request)
-    {
-        $user = null;
-
-        if ($id == "me") {
-
-            // For current user
-            $currentUserToken = $request->header('Authorization');
-            $currentUserToken = substr($currentUserToken, strlen('Bearer '));
-
-            $user = User::whereHas('accessToken', function($query) use($currentUserToken) {
-                $query->where('id', '=', $currentUserToken);
-            })->get()->first();
-
-        }
-        else {
-
-            // For others
-            $user = User::find($id);
-        }
-
-        return $user;
-    }
-
     private function trackUser($user, Request $request, $isSos = false)
     {
         $tracking = new Tracking();
