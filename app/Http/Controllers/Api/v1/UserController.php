@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Api\v1\Controller;
 use App\User;
+use App\Tracking;
 
 class UserController extends Controller
 {
@@ -63,6 +65,62 @@ class UserController extends Controller
         return $contacts;
     }
 
+    /**
+     * Track the current user.
+     */
+    public function track(Request $request)
+    {
+        $user = $this->fetchUser("me", $request);
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        $tracking = $this->trackUser($user, $request);
+        if (!$tracking) {
+            return $this->error(
+                422, sprintf(
+                    "Unable to track user.",
+                    $user->first_name . ' ' . $user->last_name
+                )
+            );
+        }
+
+        return $tracking;
+    }
+
+    /**
+     * Track the current user.
+     */
+    public function sos(Request $request)
+    {
+        $user = $this->fetchUser("me", $request);
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        $tracking = $this->trackUser($user, $request, true);
+        if (!$tracking) {
+            return $this->error(
+                422, sprintf(
+                    "Unable to track user.",
+                    $user->first_name . ' ' . $user->last_name
+                )
+            );
+        }
+
+        return $tracking;
+    }
+
     private function fetchUser($id, Request $request)
     {
         $user = null;
@@ -75,7 +133,7 @@ class UserController extends Controller
 
             $user = User::whereHas('accessToken', function($query) use($currentUserToken) {
                 $query->where('id', '=', $currentUserToken);
-            })->get();
+            })->get()->first();
 
         }
         else {
@@ -87,5 +145,20 @@ class UserController extends Controller
         return $user;
     }
 
+    private function trackUser($user, Request $request, $isSos = false)
+    {
+        $tracking = new Tracking();
+        $tracking->user_id = $user->id;
+        $tracking->trip_id = $request['trip_id'];
+        $tracking->current_time = Carbon::now();
+        $tracking->lat = $request['lat'];
+        $tracking->lng = $request['lng'];
+        $tracking->is_sos = $isSos;
 
+        $saved = $tracking->save();
+        if ($saved) {
+            return $tracking;
+        }
+        return false;
+    }
 }

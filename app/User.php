@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
+use App\Tracking;
 
 class User extends Authenticatable
 {
@@ -53,13 +54,13 @@ class User extends Authenticatable
         return $result;
     }
 
-    public function parents()
+    private function parents()
     {
         $parents = DB::table('users')->where('is_parent', 1)->where('child_email', $this->email)->get();
         return $parents;
     }
 
-    public function projectManager()
+    private function projectManager()
     {
         $pm = DB::table('users')
                 ->join('projects', 'users.project_id', '=', 'projects.id')
@@ -69,7 +70,7 @@ class User extends Authenticatable
         return $pm;
     }
 
-    public function buddies()
+    private function buddies()
     {
         $buddies = DB::table('users')
                     ->join('buddies', 'buddies.buddy_of_user_id', '=', 'users.id')
@@ -91,6 +92,7 @@ class User extends Authenticatable
             $contactUser['email'] = $userInSystem->email;
             $contactUser['mobile'] = $userInSystem->mobile;
             $contactUser['is_parent'] = $userInSystem->is_parent ? true : false;
+            $contactUser['is_pm'] = !$contactUser['is_parent'];
             $result[] = $contactUser;
         }
 
@@ -101,7 +103,7 @@ class User extends Authenticatable
             $contactUser['email'] = $buddy->email;
             $contactUser['mobile'] = $buddy->mobile;
             $contactUser['is_parent'] = false;
-
+            $contactUser['is_pm'] = false;
             $result[] = $contactUser;
         }
 

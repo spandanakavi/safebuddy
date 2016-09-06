@@ -32,4 +32,9 @@ Route::group(['prefix' => 'v1'], function () {
         'index', 'show', 'store', 'update', 'destroy'
     ]]);
     Route::get('users/{id}/contacts', 'Api\v1\UserController@contacts');
+    Route::resource('trips', 'Api\v1\TripController', ['only' => [
+        'index', 'show'
+    ]]);
+    Route::post('users/me/track', 'Api\v1\UserController@track');
+    Route::post('users/me/sos', 'Api\v1\UserController@sos');
 });
