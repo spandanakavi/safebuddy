@@ -38,7 +38,15 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        // @TODO Implement insert of vehicle through API
+        $vehicle = new Vehicle();
+        $vehicle->name = $request->input('name');
+        $vehicle->registration_number = $request->input('registration_number');
+
+        if ($vehicle->save()) {
+            return $vehicle;
+        }
+
+        return $this->error(422, "Unable to save vehicle.");
     }
 
     /**
@@ -90,4 +98,5 @@ class VehicleController extends Controller
     {
         // @TODO Implement delete of vehicle through API
     }
+
 }
