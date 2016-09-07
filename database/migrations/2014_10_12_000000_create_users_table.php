@@ -22,17 +22,12 @@ class CreateUsersTable extends Migration
             $table->string('ace_number')->unique()->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('project_id')->unsigned()->nullable();
             $table->boolean('is_parent')->default(false);
             $table->string('child_email')->nullable();
             $table->string('mobile')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 
