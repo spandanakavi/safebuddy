@@ -44,6 +44,80 @@ class UserController extends Controller
         return $user;
     }
 
+    public function child(Request $request)
+    {
+        $user = $this->fetchUser("me", $request);
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        $child = $user->child();
+        if ($child === null || empty($child)
+            || (
+                $child instanceof Illuminate\Database\Eloquent\Collection
+                && $child->isEmpty()
+            )
+        ) {
+            return $this->error(404, "Child not found.");
+        }
+
+        return $child;
+    }
+
+    public function currentTrip($id, Request $request)
+    {
+        $user = $this->fetchUser($id, $request);
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+
+        $trip = $user->currentOrLatestTrip();
+        if ($trip === null || empty($trip)
+            || (
+                $trip instanceof Illuminate\Database\Eloquent\Collection
+                && $trip->isEmpty()
+            )
+        ) {
+            return $this->error(404, "Current trip not found.");
+        }
+
+        return $trip;
+    }
+
+    public function trackings($id, Request $request)
+    {
+        $user = $this->fetchUser($id, $request);
+        if ($user === null || empty($user)
+            || (
+                $user instanceof Illuminate\Database\Eloquent\Collection
+                && $user->isEmpty()
+            )
+        ) {
+            return $this->error(404, "User not found.");
+        }
+        $tripId = $request['trip_id'];
+        $trackings = $user->trackings($tripId);
+        if ($trackings === null || empty($trackings)
+            || (
+                $trackings instanceof Illuminate\Database\Eloquent\Collection
+                && $trackings->isEmpty()
+            )
+        ) {
+            return $this->error(404, "Tracking entries not found.");
+        }
+
+        return $trackings;
+    }
     /**
      * Return the parent[s] of the user.
      */

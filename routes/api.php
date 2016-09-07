@@ -35,8 +35,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('trips', 'Api\v1\TripController', ['only' => [
         'index', 'show'
     ]]);
+    Route::get('users/me/child', 'Api\v1\UserController@child');
+    Route::get('users/{id}/current_trip', 'Api\v1\UserController@currentTrip');
+    Route::post('users/{id}/trackings', 'Api\v1\UserController@trackings');
     Route::post('users/me/trips', 'Api\v1\TripController@store');
     Route::patch('users/me/trips/{id}/stop', 'Api\v1\TripController@update');
     Route::post('users/me/track', 'Api\v1\UserController@track');
     Route::post('users/me/sos', 'Api\v1\UserController@sos');
+
 });

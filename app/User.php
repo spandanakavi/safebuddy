@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
+use App\Trip;
 use App\Tracking;
 
 class User extends Authenticatable
@@ -34,6 +35,25 @@ class User extends Authenticatable
     public function accessToken()
     {
         return $this->hasOne('App\OauthAccessToken');
+    }
+
+    public function child()
+    {
+        return User::where('email', $this->child_email)->get()->first();
+    }
+
+    public function currentOrLatestTrip()
+    {
+        return Trip::where('user_id', $this->id)->orderBy('start_time', 'desc')->get()
+                ->first();
+    }
+
+    public function trackings($tripId)
+    {
+        return Tracking::where('user_id', $this->id)
+                ->where('trip_id', $tripId)
+                ->orderBy('current_time')
+                ->get();
     }
 
     public function contacts()
