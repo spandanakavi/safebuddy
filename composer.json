@@ -7,7 +7,8 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "laravel/passport": "^1.0",
-        "nesbot/carbon": "~1.21"
+        "nesbot/carbon": "~1.21",
+        "php-amqplib/php-amqplib": "2.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
