@@ -126,7 +126,8 @@ class UserController extends Controller
         $tracking = new Tracking();
         $tracking->user_id = $user->id;
         $tracking->trip_id = $request['trip_id'];
-        $tracking->current_time = Carbon::now();
+        $tracking->current_time = $request['current_time'];
+        $tracking->kmph = isset($request['kmph']) ? $request['kmph'] : null;
         $tracking->lat = $request['lat'];
         $tracking->lng = $request['lng'];
         $tracking->is_sos = $isSos;

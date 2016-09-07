@@ -21,7 +21,7 @@ class CreateTrackingsTable extends Migration
             $table->string('lat');
             $table->string('lng');
             $table->boolean('is_sos');
-            
+            $table->float('kmph');
             $table->timestamps();
         });
 
@@ -38,6 +38,6 @@ class CreateTrackingsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('trackings');
     }
 }
