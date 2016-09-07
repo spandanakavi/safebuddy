@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            You're have a user login
+            You're have a manager login
     </div>
 </div>
 @endsection

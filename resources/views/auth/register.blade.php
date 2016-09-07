@@ -11,14 +11,41 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            <label for="first_name" class="col-md-4 control-label">first name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="last_name" class="col-md-4 control-label">last name</label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('ace_number') ? ' has-error' : '' }}">
+                            <label for="ace_number" class="col-md-4 control-label">Ace Number</label>
+
+                            <div class="col-md-6">
+                                <input id="ace_number" type="text" class="form-control" name="ace_number" value="{{ old('ace_number') }}">
+
+                                @if ($errors->has('ace_number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('ace_number') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -61,6 +88,28 @@
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('is_parent') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">For Parent</label>
+                            <div class="col-md-6">
+                                <label><input id="is_parent" name="is_parent" type="radio" value=0>yes</label>
+                                <label><input id="is_parent" name="is_parent" type="radio" value=1>no</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('child_email') ? ' has-error' : '' }}">
+                            <label for="child_email" class="col-md-4 control-label"> Child E-Mail Address(For Parent Registration only)</label>
+
+                            <div class="col-md-6">
+                                <input id="child_email" type="email" class="form-control" name="child_email" value="{{ old('child_email') }}">
+
+                                @if ($errors->has('child_email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('child_email') }}</strong>
                                     </span>
                                 @endif
                             </div>
