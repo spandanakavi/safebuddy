@@ -18,9 +18,8 @@
                         <td>Source </td>
                         <td>Destination</td>
                         <td>Current Location     </td>
-                        <td>Is Sos </td>
-                        <td>Speed </td>
-                        <td>link </td>
+                        <td> Sos </td>
+                        <td>Speed (km/hr) </td>
                         <td>Start Time</td>
                         <td>End Time</td>               
                     </tr>
@@ -29,8 +28,13 @@
 
                     <?php $a = 1; ?>
                     @foreach ($tripDetails as $trip=>$values)
+                    @if ( $values['trackings']->is_sos === 1)
+                    <tr class="sos">
+                    @else
                     <tr>
-                        <td><?php echo $a++; ?>   </td>
+                    @endif
+                    
+                        <td><a href="#"><?php echo $a++; ?> </a> </td>
                         <td> {{ $values['user']->first_name }} 
                             {{ $values['user']->last_name }}
                         </td>
@@ -45,10 +49,14 @@
                         <td>{{$values['destination']}}</td>
 
                         <td>{{  $values['location'] }}</td>
-                        <td>{{  $values['trackings']->is_sos }}</td>
+                        @if ( $values['trackings']->is_sos === 1)
+                        <td style="color:red;">!</td>
+                        @else
+                        <td></td>
+                        @endif
+                        
                         <td>{{  $values['trackings']->kmph }}</td>
 
-                        <td><a href="#"> Trip#{{ $values['id'] }}</a></td>
                         <td>{{  $values['start_time'] }}</td>
                         <td>{{  $values['end_time'] }}</td>
                     </tr>    

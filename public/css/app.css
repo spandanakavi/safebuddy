@@ -4771,4 +4771,8 @@ td, th {
   th { 
     background-color:#f4f4f4;
     font-weight: normal;
-  } 
+  }
+  
+  tr.sos, tr.sos a{
+      color:red;
+  }
