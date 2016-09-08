@@ -14,7 +14,7 @@ use App\Tracking;
 class Trip extends Model
 {
     //
-    
+
      /**
      * The attributes that are mass assignable.
      *
@@ -24,11 +24,10 @@ class Trip extends Model
         'user_id', 'vehicle_id', 'surce', 'destination', 'start_time',
         'end_time'
     ];
-    
-    
+
+
     public function buildDetails($tripDetails, $isAdmin, $projectIds)
     {
-
         $userDetail = array();
         foreach ($tripDetails as $trip => $values) {
             $vehicleDetails = $this->vehicles($values['vehicle_id'])->toArray();
@@ -42,13 +41,16 @@ class Trip extends Model
 
             if (!empty($userDetails)) {
                 $tripDetails[$trip]['user'] = $userDetails[0];
-                $tripDetails[$trip]['vehicle'] = $vehicleDetails[0];
-                $tripDetails[$trip]['trackings'] = $trackingDetails[0];
+                $tripDetails[$trip]['vehicle'] = isset($vehicleDetails[0])
+                                                    ? $vehicleDetails[0]
+                                                    : array();
 
-                $latlong = $trackingDetails[0]->lat . ',' . $trackingDetails[0]->lng;
-
-                $geolocation = $this->geoLocation($latlong);
-                $tripDetails[$trip]['location'] = $geolocation;
+                if (isset($trackingDetails[0])) {
+                    $tripDetails[$trip]['trackings'] = $trackingDetails[0];
+                    $latlong = $trackingDetails[0]->lat . ',' . $trackingDetails[0]->lng;
+                    $geolocation = $this->geoLocation($latlong);
+                    $tripDetails[$trip]['location'] = $geolocation;
+                }
             } else {
                 unset($tripDetails[$trip]);
             }
@@ -63,10 +65,10 @@ class Trip extends Model
                  ->where('id', $id)
                  ->select('name','registration_number')
                  ->get();
-        
+
         return $users;
     }
-    
+
     private function users($id)
     {
         $users = DB::table('users')
@@ -96,7 +98,7 @@ class Trip extends Model
                      ->get();
         return $trackings;
     }
-    
+
     private function geoLocation($latlong)
     {
         $key = 'AIzaSyDjOJnuUxi5x9t1UChVGrzKnDC3DJut0IQ';
@@ -129,4 +131,4 @@ class Trip extends Model
         return $projects;
     }
 
-}            
+}
