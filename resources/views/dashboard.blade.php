@@ -83,7 +83,7 @@
     }
 
     $(document).ready(function() {
-      var socket = io.connect('http://localhost:8090/');
+      var socket = io.connect('http://52.66.141.118:8090/');
       socket.on('connect', function(){  });
       socket.on('message', function(message) {
           console.log(message);
