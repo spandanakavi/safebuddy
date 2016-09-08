@@ -4754,7 +4754,13 @@ a.text-danger:focus, a.text-danger:hover {
 
 /*# sourceMappingURL=app.css.map */
 
-/*# list view styleing*/
+/*# list view styling*/
+
+body{
+    width:100%;
+    float:left;
+    height: auto;
+}
 table {
     border-collapse: collapse;
     width: 100%;
@@ -4775,4 +4781,12 @@ td, th {
   
   tr.sos, tr.sos a{
       color:red;
+  }
+
+  footer.col-md-12{
+      width:100%;
+      float:left;
+      position: absolute;
+      max-width: 1120px;
+      bottom: 20px;      
   }

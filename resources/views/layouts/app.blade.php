@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Safe Buddy -Stay Geo connected with your Friends and Family ! </title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -78,8 +78,13 @@
     </nav>
 
     @yield('content')
-
+   
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <footer class="col-md-12"> 
+        <span> © <?php echo  date("Y"); ?> Safe Buddy. All rights reserved </span>
+        <span style="float: right;"> Contact Us : safebuddy-cluster@aspiresysinc.onmicrosoft.com 
+        </span>
+    </footer> 
 </body>
 </html>
