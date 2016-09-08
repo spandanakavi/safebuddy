@@ -9,15 +9,83 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel</title>
-
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font: 62.5%/1.3 normal Helvetica, sans-serif;
+            font-size: 14px;
+        }
+         
+        td, th { 
+           text-align: center; 
+           border: 1px solid #ddd; 
+           padding:.5em 5px;
+           font-size: 1.2em;
+        }
+          th { 
+            background-color:#f4f4f4;
+            font-weight: normal;
+          }
+          
+          tr.sos, tr.sos a{
+              color:red;
+          }
+      body {
+        font-family: arial, helvetica, sans-serif;
+        color: #606060;
+      }
+      .title-bar {
+        border-bottom: 1px solid #c0c0c0;
+        width:100%;
+        height:5%;
+      }
+      .map-canvas {
+        width:100%;
+        height:93%;
+        margin-top: 5px;
+      }
+      .title {
+        display: inline-block;
+        width: 90%;
+        font-size: 1.4em;
+      }
+      .reset-btn {
+        display: inline-block;
+        width: 9%;
+        text-align: right;
+      }
+      .search-box {
+        float:right;
+        margin:10px 0;
+       }
+    </style>
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <!-- <link href="/css/app.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
+    </script>
+    <script src="http://127.0.0.1:8090/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD8x7f9Yxj3ydTDR7XSeEHhaH4t-4P2a68&sensor=false">
+  </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).on("click", "#map", function(){
+            $.ajax({
+                type: "GET",
+                url: "{{ URL::to('/admin/home') }}",
+                data: $( this ).serialize(),
+                success: function(data) {
+                    $('#map-view').html(data);
+                }
+            }); 
+        });
     </script>
 </head>
 <body>
@@ -81,5 +149,16 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
+  
+  <!-- <script type="text/javascript">
+    function initialize() {
+      initMap();
+    }
+  </script> -->
+   
+
+
 </body>
 </html>
