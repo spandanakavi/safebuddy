@@ -189,15 +189,10 @@
     });
   </script>
 @section('content')
-<div style="width:100%;height:100%">
+<div style="margin:auto;width:80%;height:100%;">
   <div class="title-bar">
-    <div class="title"><strong>Track User</strong></div>
-    <div class="submit"><a href ="/trips"><input type="button" value="List View" name="List View"/></a></div>
+    <div class="title"><strong>Track Users</strong></div>
     <div class="reset-btn"><input type="button" name="reset-map" id="reset-map" value="Reset Map" onclick="javascript:location.reload();"/></div>
-  </div>
-  <div class="search-box">
-    <input id="address" type="textbox" value="">
-    <input type="button" value="Search" onclick="codeAddress()">
   </div>
   <div id="map-canvas" class="map-canvas"></div>
 </div>

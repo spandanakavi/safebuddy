@@ -8,9 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
-    <title>Safe Buddy -Stay Geo connected with your Friends and Family ! </title>
-
+     <link rel="shortcut icon" type="image/x-icon" href="/logo_SafeBuddy.png" />
+     <title>Safe Buddy</title>
     <style type="text/css">
         table {
             border-collapse: collapse;
@@ -22,45 +21,51 @@
         td, th { 
            text-align: center; 
            border: 1px solid #ddd; 
-           padding:.5em 5px;
+           padding:5px !important;
            font-size: 1.2em;
         }
-          th { 
+        th { 
             background-color:#f4f4f4;
             font-weight: normal;
-          }
-          
-          tr.sos, tr.sos a{
-              color:red;
-          }
-      body {
-        font-family: arial, helvetica, sans-serif;
-        color: #606060;
-      }
-      .title-bar {
-        border-bottom: 1px solid #c0c0c0;
-        width:100%;
-        height:5%;
-      }
-      .map-canvas {
-        width:100%;
-        height:93%;
-        margin-top: 5px;
-      }
-      .title {
-        display: inline-block;
-        width: 90%;
-        font-size: 1.4em;
-      }
-      .reset-btn {
-        display: inline-block;
-        width: 9%;
-        text-align: right;
-      }
-      .search-box {
-        float:right;
-        margin:10px 0;
-       }
+        }
+        tr.sos, tr.sos a{
+          color:red;
+        }
+        body {
+            font-family: arial, helvetica, sans-serif;
+            color: #606060;
+        }
+        .title-bar {
+            border-bottom: 1px solid #c0c0c0;
+            width:100%;
+            height:5%;
+        }
+        .map-canvas {
+            width:100%;
+            height:93%;
+            margin-top: 5px;
+        }
+        .title {
+            display: inline-block;
+            width: 90%;
+            font-size: 1.4em;
+        }
+        .reset-btn {
+            display: inline-block;
+            width: 9%;
+            text-align: right;
+        }
+        .search-box {
+            float:right;
+            margin:10px 0;
+        }
+        .navbar-default .navbar-nav > li > a {
+            color: #fff !important;
+        }
+        .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover 
+        {
+            color:#000 !important;
+        }
     </style>
 
     <!-- Styles -->
@@ -94,7 +99,7 @@ echo json_encode([
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style="background-color: #007dc6;">
         <div class="container">
             <div class="navbar-header">
 
@@ -107,8 +112,8 @@ echo json_encode([
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Safe Buddy
+                <a class="navbar-brand" style="padding: 0;" href="{{ url('/') }}">
+                    <img style="max-width: 40px;" src="/logo_SafeBuddy.png">
                 </a>
             </div>
 
@@ -121,6 +126,10 @@ echo json_encode([
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
+                    @if (Auth::check()) 
+                        <li><a href="{{ url('/dashboard') }}">Map View</a></li>
+                        <li><a href="{{ url('/trips') }}">List View</a></li>
+                    @endif
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>

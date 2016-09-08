@@ -13,8 +13,6 @@ use App\Tracking;
 
 class Trip extends Model
 {
-    //
-
      /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +22,6 @@ class Trip extends Model
         'user_id', 'vehicle_id', 'surce', 'destination', 'start_time',
         'end_time'
     ];
-
 
     public function buildDetails($tripDetails, $isAdmin, $projectIds)
     {

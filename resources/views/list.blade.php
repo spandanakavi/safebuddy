@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container">
-<div class="submit"><a href ="/dashboard"><input type="button" value="Map View" name="Map View"/></a></div>
+<div class="container" style="width:80%;">
+<!-- <div class="submit"><a href ="/dashboard"><input type="button" value="Map View" name="Map View"/></a></div> -->
     <div class="row">
         <div class="col-md-12">            
             <table>
@@ -35,7 +35,6 @@
                         
                         
                         @if (! empty($values['user']))
-                        Here
                         <td> {{ $values['user']->first_name }} 
                             {{ $values['user']->last_name }}
                         </td>                        
@@ -68,8 +67,6 @@
                     @endforeach 
                 </tbody>
             </table>
-
         </div>
-    
     </div>
     @endsection
