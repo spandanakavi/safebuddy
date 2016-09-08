@@ -19,8 +19,11 @@ Auth::routes();
 Route::post('register', 'Auth\RegisterController@create');
 
 Route::get('/home', 'HomeController@index');
-Route::get('admin/home', 'AdminController@index');
-Route::get('manager/home', 'ManagerController@index');
-Route::get('view', 'ManagerController@show');
+Route::get('/admin/home', 'AdminController@index');
+Route::get('/manager/home', 'ManagerController@index');
+Route::get('/view', 'ManagerController@show');
+Route::get('/ping', 'SolariumController@ping');
+Route::get('/search', 'SolariumController@search');
+Route::get('/dashboard', 'AdminController@dashboard');
 
 Route::get('/trips', 'TripController@index');

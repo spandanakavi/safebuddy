@@ -29,7 +29,7 @@ class LoginController extends Controller
     protected function authenticated($request, $user)
     {
         if($user->is_admin == 1) {
-            return redirect()->intended('/admin/home');
+            return redirect()->intended('/dashboard');
         }
         return redirect()->intended('/manager/home');
     }

@@ -3,8 +3,9 @@
 @section('content')
 
 <div class="container">
+<div class="submit"><a href ="/dashboard"><input type="button" value="Map View" name="Map View"/></a></div>
     <div class="row">
-        <div class="col-md-12 col-md-offset-2">            
+        <div class="col-md-12">            
             <table>
                 <thead>               
                     <tr>
@@ -34,7 +35,7 @@
                     <tr>
                     @endif
                     
-                        <td><a href="#"><?php echo $a++; ?> </a> </td>
+                        <td><a href="/view" target="_blank"><?php echo $a++; ?> </a> </td>
                         <td> {{ $values['user']->first_name }} 
                             {{ $values['user']->last_name }}
                         </td>

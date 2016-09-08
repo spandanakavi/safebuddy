@@ -1,44 +1,8 @@
-<html>
-  <head>
-    <style>
-      body {
-        font-family: arial, helvetica, sans-serif;
-        color: #606060;
-      }
-      .title-bar {
-        border-bottom: 1px solid #c0c0c0;
-        width:100%;
-        height:5%;
-      }
-      .map-canvas {
-        width:100%;
-        height:93%;
-        margin-top: 5px;
-      }
-      .title {
-        display: inline-block;
-        width: 90%;
-        font-size: 1.4em;
-      }
-      .reset-btn {
-        display: inline-block;
-        width: 9%;
-        text-align: right;
-      }
-      .search-box {
-	    float:right;
-        margin:10px 0;
-       }
-    </style>
-  <script src="http://127.0.0.1:8090/socket.io/socket.io.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD8x7f9Yxj3ydTDR7XSeEHhaH4t-4P2a68&sensor=false">
-  </script>
-  <script type="text/javascript">
-    function initialize() {
-      initMap();
-    }
-  </script>
+ <!-- <script src="http://52.66.141.118:8090/socket.io/socket.io.js"></script> -->
+<!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD8x7f9Yxj3ydTDR7XSeEHhaH4t-4P2a68&sensor=false">
+  </script>  -->
+ 
   <script>
     var oldCircle = null;
     var oldVehTime = null;
@@ -214,8 +178,13 @@
       vehicleSpecs[vehicle.id] = vehicleSpec;
     }
   </script>
-</head>
-<body onload="initialize()">
+  <script type="text/javascript">
+  	$(document).ready(function() {
+      initMap();
+    });
+  </script>
+
+<!-- <body onload="initialize()"> -->
 <div style="width:100%;height:100%">
   <div class="title-bar">
     <div class="title"><strong>Track User</strong></div>
@@ -227,5 +196,3 @@
   </div>
   <div id="map-canvas" class="map-canvas"></div>
 </div>
-</body>
-</html>
