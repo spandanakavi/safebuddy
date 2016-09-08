@@ -44,14 +44,13 @@ class Trip extends Model
                 $tripDetails[$trip]['vehicle'] = isset($vehicleDetails[0])
                                                     ? $vehicleDetails[0]
                                                     : array();
-                $tripDetails[$trip]['trackings'] = isset($trackingDetails[0])
-                                                    ? $trackingDetails[0]
-                                                    : array();
 
-                $latlong = $trackingDetails[0]->lat . ',' . $trackingDetails[0]->lng;
-
-                $geolocation = $this->geoLocation($latlong);
-                $tripDetails[$trip]['location'] = $geolocation;
+                if (isset($trackingDetails[0]))) {
+                    $tripDetails[$trip]['trackings'] = $trackingDetails[0];
+                    $latlong = $trackingDetails[0]->lat . ',' . $trackingDetails[0]->lng;
+                    $geolocation = $this->geoLocation($latlong);
+                    $tripDetails[$trip]['location'] = $geolocation;
+                }
             } else {
                 unset($tripDetails[$trip]);
             }
