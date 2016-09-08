@@ -10,7 +10,12 @@ class Tracking extends Model
 {
     public function publishToQueue()
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection(
+                        env('RABBITMQ_HOST'),
+                        env('RABBITMQ_PORT'),
+                        env('RABBITMQ_USERNAME'),
+                        env('RABBITMQ_PASSWORD')
+        );
         $channel = $connection->channel();
 
         $channel->exchange_declare('newMapExchange', 'topic', false, true, false);
