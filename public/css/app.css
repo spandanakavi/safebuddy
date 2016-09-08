@@ -4753,3 +4753,22 @@ a.text-danger:focus, a.text-danger:hover {
     display: none !important; } }
 
 /*# sourceMappingURL=app.css.map */
+
+/*# list view styleing*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font: 62.5%/1.3 normal Helvetica, sans-serif;
+
+}
+ 
+td, th { 
+   text-align: center; 
+   border: 1px solid #ddd; 
+   padding:.5em 5px;
+   font-size: 1.2em;
+}
+  th { 
+    background-color:#f4f4f4;
+    font-weight: normal;
+  } 

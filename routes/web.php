@@ -23,4 +23,4 @@ Route::get('admin/home', 'AdminController@index');
 Route::get('manager/home', 'ManagerController@index');
 Route::get('view', 'ManagerController@show');
 
-Route::get('/trips', 'TripController@show');
+Route::get('/trips', 'TripController@index');
