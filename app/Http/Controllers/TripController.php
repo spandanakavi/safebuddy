@@ -34,29 +34,24 @@ class TripController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-    
-    
-    /**
-     * List active trips for admin and project manager
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id =1)
-    {
-        $trip =Trip::orderBy('id', 'desc')->take(10)->get();
-        $tripDetails= array();
-        
-        foreach ($trip as $trip){
-           $tripDetails[] =  $trip['attributes']; 
-        }
-        
-        $tripDetails = ($trip->buildDetails($tripDetails));
-//        echo '<pre>Trup'; print_r($tripDetails);
+        $tripDetails = $this->recentTrips('id', 'desc', '10');
 
         return view('list', compact('tripDetails'));
     }
-    
+
+    public function recentTrips($id, $order, $count)
+    {
+
+        $trip = Trip::orderBy('id', 'desc')->take($count)->get();
+        $tripDetails = array();
+
+        foreach ($trip as $trip) {
+            $tripDetails[] = $trip['attributes'];
+        }
+
+        $tripDetails = ($trip->buildDetails($tripDetails));
+
+        return $tripDetails;
+    }
 
 }

@@ -40,7 +40,8 @@ class Trip extends Model
             
              $latlong= $trackingDetails[0]->lat.','.$trackingDetails[0]->lng;
              
-             //$geolocation = $this->geoLocation($latlong);
+             $geolocation = $this->geoLocation($latlong);
+             $tripDetails[$trip]['location'] = $geolocation;
              
         } 
         
@@ -82,9 +83,25 @@ class Trip extends Model
     private function geoLocation($latlong)
     {
         $key = 'AIzaSyDjOJnuUxi5x9t1UChVGrzKnDC3DJut0IQ';
-        $geoLocUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.$latlong.'&key='.$key;
-        return json_decode(file_get_contents($geoLocUrl), true);
+        $geoLocUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
+                      .$latlong
+                      .'&key='.$key;
+       
+        
+        $geoLocation =json_decode(file_get_contents($geoLocUrl), true);
+        
+        //Find Location name from json
+        foreach ($geoLocation['results'][0]['address_components'] as $location) {
+            if (in_array('sublocality_level_1', $location['types'])) {     
+                $locality_name = $location['long_name'];  
+            }
+            if (empty($locality_name) && in_array('locality', $location['types'])) {
+                $locality_name = $location['long_name'];
+            }
+        }
+
+        return  $locality_name;
     }
     
-     
-}
+        
+}            
