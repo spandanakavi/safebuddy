@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -60,12 +61,21 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
+        $data = $request->all();
+
+        User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'ace_number' => isset($data['ace_number']) ? $data['ace_number'] : null,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'project_id' => isset($data['project_id']) ? $data['project_id'] : null,
+            'is_parent' => $data['is_parent'],
+            'child_email' => isset($data['child_email']) ? $data['child_email'] : null,
+            'mobile' => isset($data['mobile']) ? $data['mobile'] : null
         ]);
+        return redirect('/home');
     }
 }

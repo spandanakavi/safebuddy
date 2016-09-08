@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\User;
+use Lcobucci\JWT\Parser;
 
 class Controller extends BaseController
 {
@@ -20,9 +21,11 @@ class Controller extends BaseController
         if ($id == "me") {
 
             // For current user
-            $currentUserToken = $request->header('Authorization');
-            $currentUserToken = substr($currentUserToken, strlen('Bearer '));
-
+            $currentUserJwtToken = $request->header('Authorization');
+            $currentUserJwtToken = substr($currentUserJwtToken, strlen('Bearer '));
+            $parser = new Parser();
+            $token = $parser->parse((string) $currentUserJwtToken);
+            $currentUserToken = $token->getHeader('jti');
             $user = User::whereHas('accessToken', function($query) use($currentUserToken) {
                 $query->where('id', '=', $currentUserToken);
             })->get()->first();

@@ -12,7 +12,7 @@ class RegisterController extends Controller
     {
         $data = $request->all();
 
-        User::create([
+        return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'ace_number' => isset($data['ace_number']) ? $data['ace_number'] : null,
@@ -23,6 +23,5 @@ class RegisterController extends Controller
             'child_email' => isset($data['child_email']) ? $data['child_email'] : null,
             'mobile' => isset($data['mobile']) ? $data['mobile'] : null
         ]);
-        return redirect('/home');
     }
 }

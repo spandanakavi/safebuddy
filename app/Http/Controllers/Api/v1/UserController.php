@@ -208,6 +208,7 @@ class UserController extends Controller
 
         $saved = $tracking->save();
         if ($saved) {
+            $tracking->publishToQueue();
             return $tracking;
         }
         return false;

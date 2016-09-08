@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::post('register', 'Api\v1\RegisterController@create');
+Route::post('register', 'Auth\RegisterController@create');
 
 Route::get('/home', 'HomeController@index');
 Route::get('admin/home', 'AdminController@index');
