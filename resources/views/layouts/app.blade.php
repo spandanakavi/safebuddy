@@ -148,7 +148,7 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <!-- <script src="/js/app.js"></script> -->
     
   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
   
