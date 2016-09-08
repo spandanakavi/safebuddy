@@ -70,7 +70,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <script src="http://127.0.0.1:8090/socket.io/socket.io.js"></script>
+    <script src="http://52.66.141.118:8090/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD8x7f9Yxj3ydTDR7XSeEHhaH4t-4P2a68&sensor=false">
   </script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
