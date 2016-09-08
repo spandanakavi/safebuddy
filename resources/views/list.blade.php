@@ -12,13 +12,10 @@
                         <td>id</td>
                         <td>Name</td>
                         <td>Ace No</td>
-                        <!--<td>email</td>
-                        <td>mobile Number</td> -->
                         <td>Vehicle Name</td>
-                        <!--<td>Vehicle Registration Number </td>-->
+                        <td>Current Location </td>
                         <td>Source </td>
-                        <td>Destination</td>
-                        <td>Current Location     </td>
+                        <td>Destination</td>                        
                         <td> Sos </td>
                         <td>Speed (km/hr) </td>
                         <td>Start Time</td>
@@ -26,38 +23,45 @@
                     </tr>
                 </thead> 
                 <tbody>
-
-                    <?php $a = 1; ?>
+                    
+                    <?php $a = 1; ?> 
                     @foreach ($tripDetails as $trip=>$values)
-                    @if ( $values['trackings']->is_sos === 1)
+                    @if ( !empty($values['trackings']) && $values['trackings']->is_sos === 1)
                     <tr class="sos">
                     @else
                     <tr>
-                    @endif
-                    
+                    @endif                    
                         <td><a href="/view" target="_blank"><?php echo $a++; ?> </a> </td>
+                        
+                        
+                        @if (! empty($values['user']))
+                        Here
                         <td> {{ $values['user']->first_name }} 
                             {{ $values['user']->last_name }}
-                        </td>
+                        </td>                        
                         <td> {{ $values['user']->ace_number }} </td>
-                        <!--<td> {{ $values['user']->email }} </td>
-                        <td> {{ $values['user']->mobile }} </td> -->
-
-                        <td> {{ $values['vehicle']->name }} </td>
-                        <!--<td> {{ $values['vehicle']->registration_number }} </td>-->
+                        @else 
+                        <td> - </td>
+                        <td> - </td>                        
+                        @endif
+                        @if ( !empty($values['trackings']))
+                            <td> {{ $values['vehicle']->name }} </td>
+                            <td>{{  $values['location'] }}</td>                            
+                        @else
+                             <td> - </td>
+                             <td> - </td>
+                        @endif
 
                         <td>{{$values['source']}}</td>
                         <td>{{$values['destination']}}</td>
-
-                        <td>{{  $values['location'] }}</td>
-                        @if ( $values['trackings']->is_sos === 1)
-                        <td style="color:red;">!</td>
-                        @else
-                        <td></td>
-                        @endif
                         
-                        <td>{{  $values['trackings']->kmph }}</td>
-
+                        @if ( !empty($values['trackings']))
+                         <td>{{$values['trackings']->is_sos}}</td>
+                         <td>{{$values['trackings']->kmph}}</td>
+                        @else
+                          <td> - </td>
+                          <td> - </td>
+                        @endif
                         <td>{{  $values['start_time'] }}</td>
                         <td>{{  $values['end_time'] }}</td>
                     </tr>    
