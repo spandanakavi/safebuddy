@@ -45,7 +45,7 @@ class Trip extends Model
                                                     ? $vehicleDetails[0]
                                                     : array();
 
-                if (isset($trackingDetails[0]))) {
+                if (isset($trackingDetails[0])) {
                     $tripDetails[$trip]['trackings'] = $trackingDetails[0];
                     $latlong = $trackingDetails[0]->lat . ',' . $trackingDetails[0]->lng;
                     $geolocation = $this->geoLocation($latlong);
